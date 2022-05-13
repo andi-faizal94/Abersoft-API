@@ -22,18 +22,8 @@ export const store = async (
       longitude,
       isInvoiced,
     } = req.body;
-    const project = await projectRepository.create({
-      id,
-      projectName,
-      customer,
-      reportedHours,
-      projectManager,
-      company,
-      latitude,
-      longitude,
-      isInvoiced,
-    });
-    await project.save();
+    const project = await projectRepository.insert(req.body);
+    // await project.save();
     return res.status(200).json({
       message: 'created user succesfully',
       data: [project],

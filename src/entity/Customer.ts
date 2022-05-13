@@ -9,17 +9,17 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Project extends BaseEntity {
+export class Customer extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  projectName: string;
+  customerName: string;
 
   @Column()
-  customer: string;
+  contactInfos: string;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ nullable: true })
   reportedHours: number;
 
   @Column()
