@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { getRepository } from 'typeorm';
-import { Project } from '../entity/Project';
+import { Customer } from '../entity/Customer';
 
 // create user
 export const store = async (
@@ -9,7 +9,7 @@ export const store = async (
   next: express.NextFunction
 ): Promise<any> => {
   try {
-    const projectRepository = await getRepository(Project);
+    const projectRepository = await getRepository(Customer);
 
     const {
       id,
@@ -40,7 +40,7 @@ export const index = async (
   next: express.NextFunction
 ): Promise<any> => {
   try {
-    const projectRepository = await getRepository(Project);
+    const projectRepository = await getRepository(Customer);
 
     const page = Number(req.query.page) || 1;
     const take = Number(req.query.limit) || 10;
@@ -62,42 +62,11 @@ export const index = async (
     return res.status(200).json({
       statusCode: 200,
       message: 'Succes',
-      meta: {
-        page: page,
-        nextpage: skip + 1,
-        limit: take,
-        totalPage: total_page,
-        totalData: 100,
-      },
       result: {
         project: data,
       },
     });
   } catch (error) {
-    next(error);
-  }
-};
-
-// get by id
-export const show = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-): Promise<any> => {
-  try {
-    const { id } = req.params;
-    const projectRepository = await getRepository(Project);
-
-    const ProjectById = await projectRepository.findOne(Number(id));
-    if (!ProjectById) {
-      throw new Error('not project id');
-    }
-
-    return res
-      .status(200)
-      .json({ message: 'get project by id is succesfully', data: ProjectById });
-  } catch (error) {
-    console.error(error);
     next(error);
   }
 };
