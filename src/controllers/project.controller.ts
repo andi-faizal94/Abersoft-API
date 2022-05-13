@@ -77,7 +77,7 @@ export const index = async (
           page: page,
           nextpage: skip + 1,
           limit: take,
-          totalPage: total,
+          totalPage: total_page,
           totalData: 100,
         },
         project: data,
