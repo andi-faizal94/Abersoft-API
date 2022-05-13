@@ -88,10 +88,10 @@ export const show = async (
   next: express.NextFunction
 ): Promise<any> => {
   try {
-    const { id: id } = req.params;
+    const { id } = req.params;
     const projectRepository = await getRepository(Project);
 
-    const ProjectById = await projectRepository.findOne(id);
+    const ProjectById = await projectRepository.findOne(Number(id));
     if (!ProjectById) {
       throw new Error('not project id');
     }
