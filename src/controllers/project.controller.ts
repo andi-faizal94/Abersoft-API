@@ -73,13 +73,6 @@ export const index = async (
       statusCode: 200,
       message: 'Succes',
       result: {
-        meta: {
-          page: page,
-          nextpage: skip + 1,
-          limit: take,
-          totalPage: total_page,
-          totalData: 100,
-        },
         project: data,
       },
     });
