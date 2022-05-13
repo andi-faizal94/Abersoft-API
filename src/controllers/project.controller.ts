@@ -22,7 +22,7 @@ export const store = async (
       longitude,
       isInvoiced,
     } = req.body;
-    const user = await projectRepository.create({
+    const project = await projectRepository.create({
       id,
       projectName,
       customer,
@@ -33,10 +33,10 @@ export const store = async (
       longitude,
       isInvoiced,
     });
-    await user.save();
+    await project.save();
     return res.status(200).json({
       message: 'created user succesfully',
-      data: [user],
+      data: [project],
     });
   } catch (error) {
     next(error);
@@ -84,6 +84,30 @@ export const index = async (
       },
     });
   } catch (error) {
+    next(error);
+  }
+};
+
+// get by id
+export const show = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+): Promise<any> => {
+  try {
+    const { id: id } = req.params;
+    const projectRepository = await getRepository(Project);
+
+    const ProjectById = await projectRepository.findOne(id);
+    if (!ProjectById) {
+      throw new Error('not project id');
+    }
+
+    return res
+      .status(200)
+      .json({ message: 'get project by id is succesfully', data: ProjectById });
+  } catch (error) {
+    console.error(error);
     next(error);
   }
 };
