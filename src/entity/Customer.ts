@@ -19,23 +19,8 @@ export class Customer extends BaseEntity {
   @Column()
   contactInfos: string;
 
-  @Column({ nullable: true })
-  reportedHours: number;
-
   @Column()
-  projectManager: string;
-
-  @Column()
-  company: string;
-
-  @Column({ type: 'decimal' })
-  latitude: number;
-
-  @Column({ type: 'decimal' })
-  longitude: number;
-
-  @Column()
-  isInvoiced: boolean;
+  project: number;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp', default: 'now()' })
   createdAt: Date;

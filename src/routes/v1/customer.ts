@@ -1,10 +1,9 @@
 import * as express from 'express';
-import * as ProjectController from '../../controllers/project.controller';
+import * as CustomerController from '../../controllers/customer.controller';
 
 const router = express.Router();
 
-router.get('/project', ProjectController.index);
-router.get('/project/:id', ProjectController.show);
-router.post('/project', ProjectController.store);
+router.get('/customer', CustomerController.index);
+router.post('/customer', CustomerController.store);
 
 export default router;
