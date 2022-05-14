@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { getRepository } from 'typeorm';
-import { Customer } from '../entity/Customer';
+import { Profile } from '../entity/Profile';
 
 // create user
 export const store = async (
@@ -9,15 +9,18 @@ export const store = async (
   next: express.NextFunction
 ): Promise<any> => {
   try {
-    const customerRepository = await getRepository(Customer);
-
-    const { id, fileName, filePath, fileSize, fileType, fileSuffix, fileId } =
-      req.body;
+    const customerRepository = await getRepository(Profile);
+    const name = 'cong fandi';
+    const role = 'programmer';
+    const { id, customeName, contactInfos, project } = req.body;
     const customer = await customerRepository.insert(req.body);
     // await project.save();
     return res.status(200).json({
       message: 'created user succesfully',
-      data: [customer],
+      result: {
+        profile: { name: name, role: role },
+        customer: customer,
+      },
     });
   } catch (error) {
     next(error);
@@ -31,8 +34,9 @@ export const index = async (
   next: express.NextFunction
 ): Promise<any> => {
   try {
-    const customerRepository = await getRepository(Customer);
-
+    const customerRepository = await getRepository(Profile);
+    const name = 'cong fandi';
+    const role = 'programmer';
     const page = Number(req.query.page) || 1;
     const take = Number(req.query.limit) || 10;
     const skip = (page - 1) * take;
@@ -59,6 +63,7 @@ export const index = async (
         nextpage: skip + 1,
       },
       result: {
+        profile: { name: name, role: role },
         customer: data,
       },
     });
