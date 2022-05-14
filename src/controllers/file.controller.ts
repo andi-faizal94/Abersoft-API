@@ -14,7 +14,6 @@ export const store = async (
     const { id, fileName, fileSize, fileType, fileSuffix, fileId } = req.body;
     const filePath = req.file?.path;
     const customer = await fileRepository.insert({ ...req.body, filePath });
-    // await project.save();
     return res.status(200).json({
       message: 'created user succesfully',
       data: [customer],
@@ -37,9 +36,7 @@ export const index = async (
     const take = Number(req.query.limit) || 10;
     const skip = (page - 1) * take;
 
-    // let whereCondition = {};
     const [data, total] = await fileRepository.findAndCount({
-      //   where: whereCondition,
       take,
       skip,
     });

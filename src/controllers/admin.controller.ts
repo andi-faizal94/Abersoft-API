@@ -3,12 +3,12 @@ import { getRepository } from 'typeorm';
 import { Admin } from '../entity/Admin';
 import * as jwt from 'jsonwebtoken';
 
-const maxAge = 3 * 24 * 60 * 60;
-export const createToken = (id) => {
-  return jwt.sign({ id }, 'secretkey', {
-    experesIn: maxAge,
-  });
-};
+// const maxAge = 3 * 24 * 60 * 60;
+// export const createToken = (id) => {
+//   return jwt.sign({ id }, 'secretkey', {
+//     experesIn: maxAge,
+//   });
+// };
 
 // create user
 export const store = async (
@@ -20,12 +20,21 @@ export const store = async (
     const adminRepository = await getRepository(Admin);
 
     const { id, fullname, email, password } = req.body;
-    const token = createToken;
-    const customer = await adminRepository.insert(req.body);
-    // await project.save();
+    const token = jwt.sign({ id }, 'secret key', (err, token) => {
+      res.json({
+        token,
+      });
+    });
+    const admin = await adminRepository.create({
+      id,
+      fullname,
+      email,
+      password,
+    });
+    await admin.save();
     return res.status(200).json({
       message: 'created user succesfully',
-      data: [customer],
+      data: [admin, token],
     });
   } catch (error) {
     next(error);
@@ -45,9 +54,7 @@ export const index = async (
     const take = Number(req.query.limit) || 10;
     const skip = (page - 1) * take;
 
-    // let whereCondition = {};
     const [data, total] = await adminRepository.findAndCount({
-      //   where: whereCondition,
       take,
       skip,
     });

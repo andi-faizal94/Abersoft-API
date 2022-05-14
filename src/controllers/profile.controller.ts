@@ -64,7 +64,7 @@ export const index = async (
       },
       result: {
         profile: { name: name, role: role },
-        customer: data,
+        reportedProject: data,
       },
     });
   } catch (error) {

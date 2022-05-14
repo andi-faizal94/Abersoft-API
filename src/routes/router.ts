@@ -6,13 +6,15 @@ import File from './v1/file';
 import Admin from './v1/admin';
 import Frontend from './v1/frontend';
 import AdminCustomer from './v1/adminCustomer';
+import authMiddleware from '../middleware/auth.middleware';
+
 const router = express.Router();
 
 router.use('/v1', Project);
 router.use('/v1', Customer);
 router.use('/v1', Profile);
 router.use('/v1', File);
-router.use('/v1', Admin);
+router.use('/v1', authMiddleware, Admin);
 router.use('/v1', Frontend);
 router.use('/v1', AdminCustomer);
 

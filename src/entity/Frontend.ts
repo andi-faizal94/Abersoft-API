@@ -16,7 +16,7 @@ export class Frontend extends BaseEntity {
   @Column()
   fullname: string;
 
-  @Column({ type: 'varchar', unique: true })
+  @Column({ type: 'varchar', unique: true, nullable: true })
   email: string;
 
   @Column({ type: 'text', nullable: true })

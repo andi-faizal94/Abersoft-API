@@ -37,9 +37,7 @@ export const index = async (
     const take = Number(req.query.limit) || 10;
     const skip = (page - 1) * take;
 
-    // let whereCondition = {};
     const [data, total] = await customerRepository.findAndCount({
-      //   where: whereCondition,
       take,
       skip,
     });
