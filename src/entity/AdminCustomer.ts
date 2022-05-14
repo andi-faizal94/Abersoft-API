@@ -16,7 +16,7 @@ export class AdminCustomer extends BaseEntity {
   @Column({ nullable: true })
   company: string;
 
-  @Column({ type: 'varchar', unique: true, nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   projectManager: string;
 
   @Column({ type: 'text', nullable: true })

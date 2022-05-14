@@ -12,11 +12,17 @@ export const store = async (
     const adminRepository = await getRepository(AdminCustomer);
 
     const { id, company, projectManager, worker } = req.body;
-    const customer = await adminRepository.insert(req.body);
-
+    const customer = await adminRepository.create({
+      id,
+      company,
+      projectManager,
+      worker,
+    });
+    await customer.save();
     return res.status(200).json({
-      message: 'created user succesfully',
-      data: [customer],
+      statusCode: 200,
+      message: 'Succes',
+      result: [customer],
     });
   } catch (error) {
     next(error);
