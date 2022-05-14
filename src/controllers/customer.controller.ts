@@ -12,11 +12,11 @@ export const store = async (
     const customerRepository = await getRepository(Customer);
 
     const { id, customeName, contactInfos, project } = req.body;
-    const projects = await customerRepository.insert(req.body);
+    const customer = await customerRepository.insert(req.body);
     // await project.save();
     return res.status(200).json({
       message: 'created user succesfully',
-      data: [projects],
+      data: [customer],
     });
   } catch (error) {
     next(error);
