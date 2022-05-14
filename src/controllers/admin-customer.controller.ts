@@ -54,8 +54,10 @@ export const index = async (
       message: 'Succes',
       meta: {
         page: page,
-        limit: take,
         nextpage: skip + 1,
+        limit: take,
+        totalPage: total_page,
+        totalData: 100,
       },
       customer: data,
     });
